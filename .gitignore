@@ -1,0 +1,14 @@
+# Env file
+.env
+.env.local
+.env.development.local
+
+# Dependencies
+/node_modules
+
+# Production
+/build
+
+# Others
+.DS_Store
+npm-debug.log*

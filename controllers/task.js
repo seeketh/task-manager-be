@@ -1,8 +1,8 @@
-// Task controllers
-// TODO: I need to work on better error handling.
-
 const Task = require('../models/Task'); // The task model
-const status = require('../middleware/status'); // HTPPS status codes.
+const status = require('../config/status'); // HTPPS status codes.
+
+// Task controllers
+// TODO: Work on better error handling.
 
 const getAllTasks = async (req, res) => {
     console.log('received a request to get all tasks');

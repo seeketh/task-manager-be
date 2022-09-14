@@ -18,7 +18,7 @@ const requestLogger = require('./middleware/logger'); // Loger Middleware
 const port = process.env.PORT || 4001;
 
 app.use(requestLogger); // log request url For dev troubleshooting
-app.use(express.json()); // Attemp to parse json in the req boby
+app.use(express.json()); // Attemp to parse json in the req body
 
 // routes
 app.use('/api/v1/auth', authRouter); // Authenticaton routes

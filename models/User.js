@@ -37,10 +37,12 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-userSchema.method('authenticate', async function (password, hash) {
-    const isAuthenticated = await bcrypt.compare(password, hash);
-    console.log('comp ', isAuthenticated);
-    return isAuthenticated;
+userSchema.method('authenticate', async function (password) {
+    try {
+        return await bcrypt.compare(password, this.password);
+    } catch (error) {
+        throw error;
+    }
 });
 
 userSchema.method('authorize', function() {

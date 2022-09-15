@@ -24,9 +24,9 @@ const login = async (req, res) => {
         });
     }
 
-    // Authenticate
-    user.authenticate(password, user.password)
-    .then(isAuthenicated => {
+    // Authenticate 
+    try {
+        const isAuthenicated = await user.authenticate(password);
         // Wrong password
         if (!isAuthenicated) {
             console.log("in auth ", isAuthenicated);
@@ -38,14 +38,13 @@ const login = async (req, res) => {
         //  Else Authorize
         const payload = user.authorize();
         res.status(status.OK).send(payload);
-    })
-    .catch(error => {
+    } catch(error) {
         console.log("in auth ", error);
         return res.status(status.SERVERERROR).send({
             success: false,
             msg: "Failed to authenticate, try again later"
         });
-    });
+    };
 
 }
 

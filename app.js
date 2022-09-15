@@ -23,7 +23,7 @@ app.use(express.json()); // Attemp to parse json in the req body
 
 // routes
 app.use('/api/v1/auth', authRouter); // Authenticaton routes
-app.use('/api/v1/task', taskRouter, authorizationMidleware); // Task routes
+app.use('/api/v1/task', authorizationMidleware, taskRouter); // Task routes
 
 // Creating Db connection and start server
 const appStart = async () => {

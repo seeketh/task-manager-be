@@ -4,12 +4,17 @@ const { createAuthRes } = require('../utils/authUtils');
 require('dotenv').config();
 
 // Authorization middleware
-const authorizationMidleware = (res, req, next) => {
+const authorizationMidleware = (req, res, next) => {
     // get the Auhtorization header
     const authHeader = req.headers.authorization;
+
+    console.log('headers', req.headers);
+    console.log('signedCookie', req.signedCookies.pat);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(status.NOTAUTHORIZED).send(createAuthRes(false, "Not authorized"));
     }
+
+    
 
     // Get the token
     const proposedToken = authHeader.split(' ')[1]; //[0] being 'Bearer'

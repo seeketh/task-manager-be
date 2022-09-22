@@ -10,6 +10,7 @@ const express = require('express');
 const app = express(); // The app.
 require('dotenv').config(); // use .env file
 const connectDb = require('./database/connection'); // MongoDb connection function.
+const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routes/auth');
 const taskRouter = require('./routes/task'); 
@@ -18,6 +19,7 @@ const { authorizationMidleware } = require('./middleware/auth');
 const requestLogger = require('./middleware/logger'); // Loger Middleware
 const port = process.env.PORT || 4001;
 
+app.use(cookieParser(process.env.COOKIEKEY)); // Cookies will be signed
 app.use(requestLogger); // log request url For dev troubleshooting
 app.use(express.json()); // Attemp to parse json in the req body
 

@@ -19,14 +19,13 @@ const userSchema = new mongoose.Schema({
         unique: true,
         //match: ['/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)\*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|((la-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/</>", "Please provide a valid email']
         //match: ["/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/", 'Please provide a valid email address']
-
     },
     password: {
         type: String,
         required: true,
         minLength: 4
     }
-});
+}, { timestamps: true });
 
 userSchema.pre("save", async function (next) {
     // TODO: Create custom Errors and handle this case with a suitable

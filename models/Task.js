@@ -13,15 +13,11 @@ const taskSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    },
     userId: {
         type: String,
         required: [true, "The id of the task owner is required"],
     }
-});
+}, { timestamps: true });
 
 
 module.exports = mongoose.model('Task', taskSchema);

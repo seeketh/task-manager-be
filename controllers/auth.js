@@ -16,7 +16,7 @@ const login = async (req, res) => {
     // find the user
     const user = await User.findOne({email});
 
-    // Email does not exist
+    // User does not exist
     if (!user) {
         return res.status(status.OK).send({
             success: false,
@@ -35,9 +35,23 @@ const login = async (req, res) => {
                 msg: "Invalid credentials"
             });
         }
-        //  Else Authorize
+        //  Else Authorize - Here we want to send http only cookie
+        // containing jwt. 
         const payload = user.authorize();
-        res.status(status.OK).send(payload);
+        console.log("here is the payload: ", payload);
+      
+        res
+        .status(status.OK)
+        .cookie('pat', payload.token, {
+            maxAge: new Date(Date.now() + 3600000),
+            httpOnly: true,
+            signed: true
+        })
+        .json({
+            sucess: true,
+            msg: payload.user
+        });
+          ////////
     } catch(error) {
         console.log("in auth ", error);
         return res.status(status.SERVERERROR).send({

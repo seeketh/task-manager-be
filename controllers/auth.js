@@ -47,7 +47,6 @@ const login = async (req, res) => {
             httpOnly: true,
             signed: true
         })
-        .clearCookie('access-token')
         .json({
             sucess: true,
             msg: payload.user
@@ -71,7 +70,17 @@ const register = async (req, res) => {
     const payload = user.authorize();
 
     // Send back Auth token
-    res.status(status.CREATED).send(payload);
+    res
+    .status(status.CREATED)
+    .cookie('pat', payload.token, {
+        maxAge: 3600000,
+        httpOnly: true,
+        signed: true
+    })
+    .json({
+        sucess: true,
+        msg: payload.user
+    });
 }
 
 module.exports = { login, register };

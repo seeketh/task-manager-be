@@ -35,18 +35,19 @@ const login = async (req, res) => {
                 msg: "Invalid credentials"
             });
         }
-        //  Else Authorize - Here we want to send http only cookie
+        //  Else Authorize - going for httpOnly, signed cookie
         // containing jwt. 
         const payload = user.authorize();
-        console.log("here is the payload: ", payload);
+        //console.log("here is the payload: ", payload);
       
         res
         .status(status.OK)
         .cookie('pat', payload.token, {
-            maxAge: new Date(Date.now() + 3600000),
+            maxAge: 3600000,
             httpOnly: true,
             signed: true
         })
+        .clearCookie('access-token')
         .json({
             sucess: true,
             msg: payload.user

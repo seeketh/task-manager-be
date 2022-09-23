@@ -7,7 +7,7 @@ const status = require('../config/status'); // HTPPS status codes.
 const getAllTasks = async (req, res) => {
     console.log('received a request to get all tasks');
     try {
-        const tasks = await Task.find({});
+        const tasks = await Task.find({"_id": req.useiId});
         res.status(status.OK).json(tasks);
     } catch(error) {
         console.log(error);

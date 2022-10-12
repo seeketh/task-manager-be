@@ -4,6 +4,7 @@ const User = require('../models/User'); // The user model
 // Authenticaton and authorizaton controllers
 
 const login = async (req, res) => {
+    console.log(req.body);
    const { email, password } = req.body;
 
     if (!email || !password) {
@@ -48,8 +49,8 @@ const login = async (req, res) => {
             signed: true
         })
         .json({
-            sucess: true,
-            msg: payload.user
+            success: true,
+            name: payload.user.name
         });
           ////////
     } catch(error) {
@@ -78,9 +79,12 @@ const register = async (req, res) => {
         signed: true
     })
     .json({
-        sucess: true,
-        msg: payload.user
+        success: true,
+        name: payload.user.name
     });
 }
+
+// TODO: logout - ask the FE to clear the cookie (i.e if hasnt expired)
+
 
 module.exports = { login, register };

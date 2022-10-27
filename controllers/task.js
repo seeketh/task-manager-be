@@ -9,10 +9,10 @@ const getAllTasks = async (req, res) => {
     console.log('received a request to get all tasks');
     console.log(req.params);
     try {
-        const loadLimit = req.params.limit || process.env.LOAD_lIMIT;
+        const pageLimit = req.params.limit || process.env.LOAD_lIMIT;
         const skipSize = (req.params.page - 1) * req.params.limit || process.env.NO_SKIP;
         const tasks = await Task.find({ userId: req.userId })
-        .limit(loadLimit)
+        .limit(pageLimit)
         .skip(skipSize)
         .sort({ updatedAt: -1});
         //TODO: Not really sure if i should count each time

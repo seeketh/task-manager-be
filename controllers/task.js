@@ -58,7 +58,7 @@ const createOneTask = async (req, res) => {
 
 const updateOneTask = async (req, res) => {
     if (req.params.id) {
-        if (!req.body.task && !req.body.completed) {
+        if (!req.body.task && !(typeof req.body.completed === "boolean")) {
             return res.status(status.BADREQUEST).json({success: false, msg: "Nothing to update"});
         }
         try {

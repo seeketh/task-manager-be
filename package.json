@@ -12,7 +12,7 @@
     "Node",
     "Express"
   ],
-  "author": "Nsubis Genesis",
+  "author": "Seeketh",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

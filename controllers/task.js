@@ -6,8 +6,8 @@ require('dotenv').config();
 // TODO: Work on better error handling.
 
 const getAllTasks = async (req, res) => {
-    console.log('received a request to get all tasks');
-    console.log(req.params);
+    // console.log('received a request to get all tasks');
+    // console.log(req.params);
     try {
         const pageLimit = req.params.limit || process.env.LOAD_lIMIT;
         const skipSize = (req.params.page - 1) * req.params.limit || process.env.NO_SKIP;
@@ -19,13 +19,13 @@ const getAllTasks = async (req, res) => {
         const count = await Task.estimatedDocumentCount({userId: req.userId});
         res.status(status.OK).json({tasks, count});
     } catch(error) {
-        console.log(error);
+        // console.log(error);
         res.status(status.NOTFOUND).json({success: false, msg: 'No tasks found'});
     } 
 }
 
 const getOneTask = async (req, res) => {
-    console.log('received a request to get a task with id ', req.params.id);
+    // console.log('received a request to get a task with id ', req.params.id);
     try {
         // Note: if no id is provided, getAllTask controller will be hit.
         const task = await Task.find({
@@ -43,7 +43,7 @@ const getOneTask = async (req, res) => {
 }
 
 const createOneTask = async (req, res) => {
-    console.log('received a request to create a task');
+    // console.log('received a request to create a task');
     // Attempt to create task
     try {
         await Task.create({...req.body, userId: req.userId});
@@ -84,7 +84,7 @@ const updateOneTask = async (req, res) => {
 }
 
 const deleteOneTask = async (req, res) => {
-    console.log('received a request to delete at task with id ', req.params.id);
+    // console.log('received a request to delete at task with id ', req.params.id);
     try {
         if (!req.params.id) res.status(status.BADREQUEST).json({success: false, msg: "Task ID is required"});
         await Task.deleteOne({

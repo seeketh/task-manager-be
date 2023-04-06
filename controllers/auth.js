@@ -4,7 +4,7 @@ const User = require('../models/User'); // The user model
 // Authenticaton and authorizaton controllers
 
 const login = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
    const { email, password } = req.body;
 
     if (!email || !password) {
@@ -30,7 +30,7 @@ const login = async (req, res) => {
         const isAuthenicated = await user.authenticate(password);
         // Wrong password
         if (!isAuthenicated) {
-            console.log("in auth ", isAuthenicated);
+            // console.log("in auth ", isAuthenicated);
             return res.status(status.NOTAUTHORIZED).send({
                 success: false,
                 msg: "Invalid credentials"
@@ -39,14 +39,15 @@ const login = async (req, res) => {
         //  Else Authorize - going for httpOnly, signed cookie
         // containing jwt. 
         const payload = user.authorize();
-        //console.log("here is the payload: ", payload);
+        // console.log("here is the payload: ", payload);
       
         res
         .status(status.OK)
         .cookie('pat', payload.token, {
             maxAge: 3600000,
             httpOnly: true,
-            signed: true
+            signed: true,
+            //domain: '.xgram.test'
         })
         .json({
             success: true,
@@ -54,7 +55,7 @@ const login = async (req, res) => {
         });
           ////////
     } catch(error) {
-        console.log("in auth ", error);
+        // console.log("in auth ", error);
         return res.status(status.SERVERERROR).send({
             success: false,
             msg: "Failed to authenticate, try again later"

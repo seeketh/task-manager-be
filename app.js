@@ -26,12 +26,12 @@ app.use(express.json()); // Attemp to parse json in the req body
 
 // CORS options
 const corsOptions = {
-    origin: 'http://ui.xgram.test',
+    origin: process.env.ALLOW_ORIGIN,
     credentials: true
 }
 
 // routes
-app.use('/api/v1/auth', authRouter); // Authenticaton routes
+app.use('/api/v1/auth', cors(corsOptions), authRouter); // Authenticaton routes
 app.use('/api/v1/task', cors(corsOptions), authorizationMidleware, taskRouter); // Task routes
 
 // Creating Db connection and start server

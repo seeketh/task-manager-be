@@ -38,7 +38,7 @@ app.use('/api/v1/task', cors(corsOptions), authorizationMidleware, taskRouter); 
 const appStart = async () => {
     try {
         await connectDb(process.env.MONGODB_URI);
-        app.listen(port, console.log(`Server running on port ${port}`));
+        app.listen(port, process.env.HOSTNAME, console.log(`Server running on port ${port}`));
     } catch(error) {
         console.log(error);
     }

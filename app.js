@@ -33,6 +33,14 @@ const corsOptions = {
 // routes
 app.use('/api/v1/auth', cors(corsOptions), authRouter); // Authenticaton routes
 app.use('/api/v1/task', cors(corsOptions), authorizationMidleware, taskRouter); // Task routes
+// 404
+app.use((req, res, next) => {
+    res.status(404).send("Noma, Hii ngoma siioni.");
+});
+// errors  - 50x
+app.use((error, req, res, next) => {
+    res.status(500).send("Hili nyomi sasa, subiri kidogo.");
+});
 
 // Creating Db connection and start server
 const appStart = async () => {
